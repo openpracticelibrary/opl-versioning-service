@@ -1,0 +1,22 @@
+{
+  "name": "opl-versioning-service",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/openpracticelibrary/opl-versioning-service.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/openpracticelibrary/opl-versioning-service/issues"
+  },
+  "homepage": "https://github.com/openpracticelibrary/opl-versioning-service#readme",
+  "dependencies": {
+    "@octokit/rest": "^18.0.0"
+  }
+}
