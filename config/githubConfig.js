@@ -1,4 +1,5 @@
-const {config} = require('./config');
+const config = require("./config");
+const { Octokit } = require("@octokit/rest");
 
 const githubApi = new Octokit({
   auth: config.pat,
@@ -11,4 +12,4 @@ const githubApi = new Octokit({
   },
 });
 
-module.exports = githubApi
+module.exports = githubApi;
