@@ -1,9 +1,19 @@
 const githubapi = require("./githubapi");
+const utils = require("./utils");
 
 exports.proposedChanges = async function proposedChanges() {
   const proposedChanges = await githubapi.getAllProposedChanges();
-  console.log(proposedChanges);
   return proposedChanges.map((proposedChange) => {
-    proposedChange.number;
+    return { number: proposedChange.number };
   });
+};
+
+exports.getPracticeSlug = function getPracticeSlug(proposedChange) {
+  try {
+    return utils.extractPracticeFromLabelsOnPullRequest(proposedChange.labels);
+  } catch (err) {
+    console.log(err);
+  }
+
+  return null;
 };

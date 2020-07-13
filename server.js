@@ -4,6 +4,7 @@ const resolverFunctions = require("./api/resolvers");
 const typeDefs = gql`
   type ProposedChange {
     number: Int!
+    practiceSlug: String
   }
 
   type Practice {
@@ -35,7 +36,15 @@ const typeDefs = gql`
 
 const resolvers = {
   Query: {
-    proposedChanges: resolverFunctions.proposedChanges,
+    proposedChanges: resolverFunctions.proposedChangesTest,
+  },
+  ProposedChange: {
+    number(parent) {
+      return parent.number;
+    },
+    practiceSlug(parent) {
+      return resolverFunctions.getPracticeSlug(parent);
+    },
   },
 };
 
