@@ -101,7 +101,7 @@ exports.addSlugToPullRequest = async function addSlugToPullRequest(
 exports.extractPracticeFromLabelsOnPullRequest = function extractPracticeFromLabelsOnPullRequest(
   labels
 ) {
-  const { name } = labels.find((label) => label.name.startsWith("practice:"));
+  const { name } = labels.find(label => label.name.startsWith("practice:"));
   return name.trim().split(":").slice(-1)[0];
 };
 
@@ -156,4 +156,32 @@ exports.getAllPullRequests = async function getAllPullRequests() {
     state: "open",
     sort: "created",
   });
+};
+
+exports.determineMergeableStatus = async function determineMergeableStatus(
+  pullRequestNumber
+) {
+  try {
+    await exports.updateChangeWithLatest(pullRequestNumber);
+    return true;
+  } catch (err) {
+    return false;
+  }
+};
+
+exports.getDiffFromPullRequest = async function getDiffFromPullRequest(
+  pullRequestNumber
+) {
+  const {
+    data: { url },
+  } = await exports.getPullRequest(pullRequestNumber);
+
+  const token_config = {
+    headers: {
+      Authorization: `Bearer ${config.pat}`,
+      Accept: "application/vnd.github.v3.diff",
+    },
+  };
+  const { data } = await axios.get(url + ".diff", token_config);
+  return data;
 };
